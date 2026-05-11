@@ -164,8 +164,11 @@ EOF
   echo "App directory: ${APP_DIR}"
   echo "Image: ${IMAGE}"
   echo "Local URL on VPS: http://127.0.0.1:${APP_PORT}"
+  public_ip="$(curl -fsS --max-time 3 https://api.ipify.org 2>/dev/null || curl -fsS --max-time 3 http://ifconfig.me 2>/dev/null || true)"
+  public_ip="${public_ip:-<your-vps-public-ip>}"
+  ssh_port="${SSH_PORT:-22}"
   echo "SSH tunnel from your Mac:"
-  echo "  ssh -p 22928 -N -L ${APP_PORT}:127.0.0.1:${APP_PORT} root@94.16.107.156"
+  echo "  ssh -p ${ssh_port} -N -L ${APP_PORT}:127.0.0.1:${APP_PORT} root@${public_ip}"
   echo "Then open: http://localhost:${APP_PORT}"
   if [ -n "${generated_password}" ]; then
     echo "Initial login password: ${generated_password}"

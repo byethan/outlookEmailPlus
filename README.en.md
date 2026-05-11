@@ -21,7 +21,7 @@ In short, OutlookMail Plus is a mailbox manager designed specifically for regist
 This fork is intended for self-hosted use. On a VPS, bind the app to `127.0.0.1:5001` and access it through an SSH tunnel:
 
 ```bash
-ssh -p 22928 -N -L 5001:127.0.0.1:5001 root@94.16.107.156
+ssh -p <ssh-port> -N -L 5001:127.0.0.1:5001 root@<vps-public-ip>
 ```
 
 Then open `http://localhost:5001`.

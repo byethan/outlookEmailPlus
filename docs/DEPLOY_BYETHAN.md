@@ -49,7 +49,7 @@ curl -fsSL https://raw.githubusercontent.com/byethan/outlookEmailPlus/main/scrip
 部署完成后，在 Mac 上开 SSH 隧道：
 
 ```bash
-ssh -p 22928 -N -L 5001:127.0.0.1:5001 root@94.16.107.156
+ssh -p <SSH端口> -N -L 5001:127.0.0.1:5001 root@<VPS公网IP>
 ```
 
 然后打开：
