@@ -123,7 +123,7 @@
 ### 本次执行回填（2026-04-15，发布确认与监控收口）
 
 - 发布确认：`v1.17.0` 已在 GitHub Release 正式发布并显示为 `Latest`。
-- 发布页：`https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v1.17.0`
+- 发布页：`https://github.com/byethan/outlookEmailPlus/releases/tag/v1.17.0`
 - 修复提交链路（`f3d2208`）最终状态：
   - `Code Quality` ✅
   - `Python Tests` ✅

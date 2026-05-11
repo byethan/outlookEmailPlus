@@ -162,7 +162,7 @@
     - `build-and-push` job 被直接 `skipped`
     - 结论：GitHub Release 已创建，但注册表镜像发布未完成，需先修复格式化问题再重跑该工作流
 - Release 地址：
-  - `https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v2.1.0`
+  - `https://github.com/byethan/outlookEmailPlus/releases/tag/v2.1.0`
 
 ## v2.0.0 - 浏览器扩展 v0.1.0 发布
 
@@ -403,7 +403,7 @@
 - 新增热更新双模式支持：Watchtower（推荐）和 Docker API 自更新（A2 helper 容器），可在设置页面一键切换更新方式。
 - 新增 Watchtower 集成：连通性测试、手动触发更新、已是最新版本智能检测（基于 Watchtower 同步 POST `/v1/update` 接口的行为特征——收到 200 响应即表示当前已是最新版本）。
 - 新增 Docker API 自更新（A2 方案）：通过 Docker API 创建短生命周期 updater 容器（`oep-updater-*`），执行 12 步更新流程（pull → digest 比对 → create → stop 旧 → start 新 → health check → rename → cleanup），支持失败自动回滚。
-- 新增 GHCR 镜像支持：白名单新增 `ghcr.io/zeropointsix/` 前缀，支持 GitHub Container Registry 镜像的热更新。
+- 新增 GHCR 镜像支持：白名单新增 `ghcr.io/byethan/` 前缀，支持 GitHub Container Registry 镜像的热更新。
 - 新增版本比较 pre-release 后缀支持：`_version_gt()` 自动忽略 `-hotupdate-test` 等后缀，仅比较语义化版本号。
 - 新增 `/api/system/deployment-info` 部署信息 API：返回镜像名、标签类型、本地构建检测、Docker API 可用性、Watchtower 连通性。
 - 新增 healthz `boot_id` 和 `version` 字段：前端通过 boot_id 变化精确检测容器重启。

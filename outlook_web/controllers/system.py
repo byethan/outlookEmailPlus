@@ -387,7 +387,7 @@ def api_version_check() -> Any:
     current = APP_VERSION
 
     try:
-        GITHUB_API = "https://api.github.com/repos/ZeroPointSix/outlookEmailPlus/releases/latest"
+        GITHUB_API = "https://api.github.com/repos/byethan/outlookEmailPlus/releases/latest"
         req = urllib.request.Request(
             GITHUB_API,
             headers={"User-Agent": "outlook-email-plus"},
@@ -713,7 +713,7 @@ def api_deployment_info() -> Any:  # noqa: C901
     {
         "success": true,
         "deployment": {
-            "image": "guangshanshui/outlook-email-plus:latest",
+            "image": "ghcr.io/byethan/outlook-email-plus:latest",
             "is_local_build": false,
             "uses_fixed_tag": false,
             "update_method": "watchtower",
@@ -891,9 +891,9 @@ def api_deployment_info() -> Any:  # noqa: C901
                 "severity": "warning",
                 "message": "当前为本地构建模式，一键更新将无法工作",
                 "message_en": "Local build detected. Auto-update is not available",
-                "suggestion": "请使用远程镜像部署（如 guangshanshui/outlook-email-plus:latest）以支持一键更新",
+                "suggestion": "请使用远程镜像部署（如 ghcr.io/byethan/outlook-email-plus:latest）以支持一键更新",
                 "suggestion_en": (
-                    "Please use remote image (e.g., guangshanshui/outlook-email-plus:latest) for auto-update support"
+                    "Please use remote image (e.g., ghcr.io/byethan/outlook-email-plus:latest) for auto-update support"
                 ),
             }
         )

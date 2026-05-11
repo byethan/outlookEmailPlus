@@ -18,7 +18,7 @@ In short, OutlookMail Plus is a mailbox manager built for registration workflows
 
 ## Project Links
 
-- GitHub: https://github.com/ZeroPointSix/outlookEmailPlus
+- GitHub: https://github.com/byethan/outlookEmailPlus
 - Demo site: https://gbcoinystsyz.ap-southeast-1.clawcloudrun.com/
 - Demo login password: `12345678`
 - The demo site includes sample mailboxes for hands-on testing.

@@ -8,7 +8,7 @@
 - 主题：邮件列表大量渲染导致页面卡顿
 - 来源：GitHub Issue #22
 - 提出者：@zyycn
-- Issue 链接：https://github.com/ZeroPointSix/outlookEmailPlus/issues/22
+- Issue 链接：https://github.com/byethan/outlookEmailPlus/issues/22
 
 ## 问题描述
 

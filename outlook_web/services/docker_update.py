@@ -5,7 +5,7 @@
 安全要求：
 - 默认关闭，需 DOCKER_SELF_UPDATE_ALLOW=true 启用
 - 检测 docker.sock 是否可访问
-- 校验镜像名白名单（仅允许 guangshanshui/outlook-email-plus）
+- 校验镜像名白名单（仅允许 ghcr.io/byethan/outlook-email-plus）
 - 操作前记录审计日志
 
 回滚机制：
@@ -27,8 +27,7 @@ logger = logging.getLogger(__name__)
 # 策略A（生产安全）：彻底禁止本地构建镜像触发 Docker API 更新。
 # 因此白名单仅允许官方远程镜像前缀，不再放行本地/无 namespace 的镜像名。
 ALLOWED_IMAGE_PREFIXES = [
-    "guangshanshui/outlook-email-plus",
-    "ghcr.io/zeropointsix/outlook-email-plus",
+    "ghcr.io/byethan/outlook-email-plus",
 ]
 
 
@@ -45,22 +44,19 @@ def _looks_like_local_image_ref(image_ref: str) -> bool:
     lower_ref = ref.lower()
 
     # 无 namespace（如 outlook-email-plus:latest）通常是本地构建或会落到 Docker Hub library
-    # 官方镜像应包含 namespace：guangshanshui/outlook-email-plus
+    # 官方镜像应包含 namespace：ghcr.io/byethan/outlook-email-plus
     if "/" not in ref:
         return True
 
     # 常见本地构建/测试 tag（需排除官方镜像）
-    # 注意：官方镜像可能使用 guangshanshui/outlook-email-plus:test 等 tag，不能简单检测 test 关键字
+    # 注意：官方镜像可能使用 ghcr.io/byethan/outlook-email-plus:test 等 tag，不能简单检测 test 关键字
     # 改为：只检测明确的本地构建模式（无 namespace 或非官方 namespace）
 
     # 提取 namespace 并检查是否为官方来源
-    # 对于 Docker Hub 镜像（如 guangshanshui/xxx），namespace 是第一段
-    # 对于 GHCR 等 registry 镜像（如 ghcr.io/zeropointsix/xxx），需要匹配前两段
+    # 对于 Docker Hub 镜像（如 byethan/xxx），namespace 是第一段
+    # 对于 GHCR 等 registry 镜像（如 ghcr.io/byethan/xxx），需要匹配前两段
     _OFFICIAL_PREFIXES = [
-        "guangshanshui/",
-        "docker.io/guangshanshui/",
-        "ghcr.io/guangshanshui/",
-        "ghcr.io/zeropointsix/",
+        "ghcr.io/byethan/",
     ]
 
     # 如果镜像引用以官方前缀开头，不视为本地构建
@@ -108,7 +104,7 @@ def validate_image_for_update(image_ref: str, *, image_id: Optional[str] = None)
         if _looks_like_local_image_ref(image_ref):
             return (
                 False,
-                f"检测到本地构建/非官方镜像（{image_ref}），已按安全策略禁止 Docker API 一键更新。请使用官方远程镜像部署（如 guangshanshui/outlook-email-plus:latest）。",
+                f"检测到本地构建/非官方镜像（{image_ref}），已按安全策略禁止 Docker API 一键更新。请使用官方远程镜像部署（如 ghcr.io/byethan/outlook-email-plus:latest）。",
             )
         return ok, msg
 
@@ -159,7 +155,7 @@ def validate_image_name(image_name: str) -> Tuple[bool, str]:
     """验证镜像名是否在白名单内
 
     Args:
-        image_name: 镜像名（如 guangshanshui/outlook-email-plus:latest）
+        image_name: 镜像名（如 ghcr.io/byethan/outlook-email-plus:latest）
 
     Returns:
         (is_valid, message)
@@ -195,7 +191,7 @@ def get_container_info(container_id_or_name: str) -> Optional[Dict[str, Any]]:
         {
             "id": "abc123...",
             "name": "outlook-email-plus",
-            "image": "guangshanshui/outlook-email-plus:latest",
+            "image": "ghcr.io/byethan/outlook-email-plus:latest",
             "image_id": "sha256:...",
             "labels": {...},
             "env": {...},
@@ -445,7 +441,7 @@ def pull_latest_image(image_name: str) -> Tuple[bool, str, Optional[str]]:
     """拉取最新镜像
 
     Args:
-        image_name: 镜像名（如 guangshanshui/outlook-email-plus:latest）
+        image_name: 镜像名（如 ghcr.io/byethan/outlook-email-plus:latest）
 
     Returns:
         (success, message, new_digest)

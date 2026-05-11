@@ -2,7 +2,7 @@
 
 > **用途**：供其他AI分析解决此问题
 > **创建时间**：2026-04-30
-> **Issue链接**：https://github.com/ZeroPointSix/outlookEmailPlus/issues/56
+> **Issue链接**：https://github.com/byethan/outlookEmailPlus/issues/56
 
 ---
 
@@ -424,7 +424,7 @@ const pageAccounts = accounts.slice(startIdx, startIdx + ACCOUNT_PAGE_SIZE);
 
 ## 8. 相关资源
 
-- [GitHub Issue #56](https://github.com/ZeroPointSix/outlookEmailPlus/issues/56)
+- [GitHub Issue #56](https://github.com/byethan/outlookEmailPlus/issues/56)
 - [SQLite分页查询最佳实践](https://www.sqlite.org/lang_select.html#limitoffset)
 - [Flask分页实现参考](https://flask-sqlalchemy.palletsprojects.com/en/2.x/pagination/)
 - [前端分页组件设计](https://ant.design/components/pagination/)

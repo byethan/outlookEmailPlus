@@ -575,7 +575,7 @@ const key = Array.from(bytes, b => ALPHABET[b % ALPHABET.length]).join('');
 1. Release 结果：
    - `v1.17.0` 已发布且为 `Latest`；
    - 非草稿、非预发布；
-   - 发布页：`https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v1.17.0`。
+   - 发布页：`https://github.com/byethan/outlookEmailPlus/releases/tag/v1.17.0`。
 2. 发布后修复链路结果（提交 `f3d2208`）：
    - `Code Quality` ✅
    - `Python Tests` ✅
@@ -587,8 +587,8 @@ const key = Array.from(bytes, b => ALPHABET[b % ALPHABET.length]).join('');
 ### 10.8 双仓镜像构建状态核对（2026-04-15）
 
 1. 核对目标仓库：
-   - GHCR：`ghcr.io/zeropointsix/outlook-email-plus`
-   - DockerHub：`docker.io/guangshanshui/outlook-email-plus`
+   - GHCR：`ghcr.io/byethan/outlook-email-plus`
+   - DockerHub：`ghcr.io/byethan/outlook-email-plus`
 2. `main` 与 `latest` 标签：
    - 两仓均可拉取 manifest，且 index digest 一致：
      - `sha256:8aef74b93a816e3aa8020d1c20767715a5c51e1373f8c8f58f5d692092869218`

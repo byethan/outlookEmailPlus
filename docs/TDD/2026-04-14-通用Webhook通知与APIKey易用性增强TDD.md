@@ -374,7 +374,7 @@ python -m unittest discover -s tests -v
 ### 13.11 v1.17.0 发布与链路收口确认（2026-04-15）
 
 - 发布状态：`v1.17.0` Release 已发布并标记为 `Latest`。
-- 发布页面：`https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v1.17.0`。
+- 发布页面：`https://github.com/byethan/outlookEmailPlus/releases/tag/v1.17.0`。
 - 发布后修复链路（提交 `f3d2208`）已验证四项主工作流全绿：
   - `Code Quality` / `Python Tests` / `Build and Push Docker Image` / `SonarCloud Scan` 均为 success。
 - 会话监控收口提交（`05871bf`）触发的 `SonarCloud Scan` 亦为 success，说明当前主干状态稳定。

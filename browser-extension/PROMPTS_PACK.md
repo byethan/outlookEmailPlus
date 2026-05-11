@@ -142,7 +142,7 @@ const Storage = {
 ```json
 {
   "config": {
-    "serverUrl": "https://demo.outlookmailplus.tech",
+    "serverUrl": "http://localhost:5001",
     "apiKey": "sk-xxxx",
     "defaultProjectKey": "my-project"
   },
@@ -1161,7 +1161,7 @@ Chrome / Edge 浏览器扩展，提供「申领邮箱 → 获取验证码/链接
 1. 点击工具栏的扩展图标（或按 `Ctrl+Shift+E`）
 2. 点击右上角 ⚙ 进入设置
 3. 填写：
-   - **服务器地址**：你的 OutlookMail Plus 服务地址（如 `https://demo.outlookmailplus.tech`）
+   - **服务器地址**：你的 OutlookMail Plus 服务地址（如 `http://localhost:5001`）
    - **API Key**：外部接口的 X-API-Key
    - **默认项目 Key**（可选）：常用的 project_key
 4. 点击 **保存配置**，浏览器会弹出权限确认框，选择 **允许**

@@ -19,8 +19,8 @@ docker build -t outlook-email-local:test .
 ### 2. 推送当前代码到远程镜像（可选，用于测试正向更新）
 ```bash
 # 如果你有 DockerHub 推送权限
-docker build -t guangshanshui/outlook-email-plus:test-a2 .
-docker push guangshanshui/outlook-email-plus:test-a2
+docker build -t ghcr.io/byethan/outlook-email-plus:test-a2 .
+docker push ghcr.io/byethan/outlook-email-plus:test-a2
 ```
 
 ### 3. 准备环境变量文件
@@ -86,7 +86,7 @@ docker rm outlook-local-test
 **步骤**：
 1. 构建并标记为官方镜像名（仅本地，不推送）：
    ```bash
-   docker build -t guangshanshui/outlook-email-plus:fake-local .
+   docker build -t ghcr.io/byethan/outlook-email-plus:fake-local .
    ```
 
 2. 使用 `docker-compose.docker-api-test.yml` 启动（它已配置为这种场景）：
@@ -116,7 +116,7 @@ docker compose -f docker-compose.docker-api-test.yml down
 
 **目标**：验证真正的远程镜像可以触发 Docker API 更新流程
 
-**前提**：需要 DockerHub 上存在一个可 pull 的官方镜像（如 `guangshanshui/outlook-email-plus:latest`），且当前环境能访问 DockerHub。
+**前提**：需要 DockerHub 上存在一个可 pull 的官方镜像（如 `ghcr.io/byethan/outlook-email-plus:latest`），且当前环境能访问 DockerHub。
 
 > 说明：策略A会基于 **RepoDigests** 判断是否为“远程拉取镜像”。
 > - `docker pull` 得到的镜像通常 RepoDigests 非空（允许触发更新）
@@ -125,7 +125,7 @@ docker compose -f docker-compose.docker-api-test.yml down
 **步骤**：
 1. 从远程拉取镜像并启动：
    ```bash
-   docker pull guangshanshui/outlook-email-plus:latest
+   docker pull ghcr.io/byethan/outlook-email-plus:latest
    
    docker run -d \
      --name outlook-remote-test \
@@ -135,7 +135,7 @@ docker compose -f docker-compose.docker-api-test.yml down
      -e SECRET_KEY=test-secret \
      -e LOGIN_PASSWORD=admin123 \
      -e DOCKER_SELF_UPDATE_ALLOW=true \
-     guangshanshui/outlook-email-plus:latest
+     ghcr.io/byethan/outlook-email-plus:latest
    ```
 
 2. 访问 `http://localhost:5004` 并登录
@@ -143,7 +143,7 @@ docker compose -f docker-compose.docker-api-test.yml down
 3. 进入 **系统设置 → 一键更新**
 
 4. 观察 **部署信息检测** 区域应显示：
-   - ✅ 镜像名：`guangshanshui/outlook-email-plus:latest`
+   - ✅ 镜像名：`ghcr.io/byethan/outlook-email-plus:latest`
    - ✅ 无 "本地构建" 警告
    - ✅ "Docker API 可用" 提示
 
@@ -225,7 +225,7 @@ docker volume rm outlook-remote-data
 {
   "success": true,
   "deployment": {
-    "image": "guangshanshui/outlook-email-plus:latest",
+    "image": "ghcr.io/byethan/outlook-email-plus:latest",
     "is_local_build": false,
     "docker_api_available": true,
     "can_auto_update": true,
@@ -256,7 +256,7 @@ docker volume rm outlook-remote-data
 ### 正向热更新切换（远程镜像 + tag 同名但 digest 变更）
 
 - 目标容器：`outlook-canary`（端口 `5005->5000`，挂载 docker.sock，`DOCKER_SELF_UPDATE_ALLOW=true`）
-- 使用镜像：`guangshanshui/outlook-email-plus:a2-strategyA-canary`
+- 使用镜像：`ghcr.io/byethan/outlook-email-plus:a2-strategyA-canary`
 - 更新触发接口：`POST /api/system/trigger-update?method=docker_api`
 
 触发返回：
@@ -314,12 +314,12 @@ read -p "按 Enter 继续清理..."
 docker stop test-local && docker rm test-local
 
 echo "=== 测试用例3: 远程镜像应能正常更新 ==="
-docker pull guangshanshui/outlook-email-plus:latest
+docker pull ghcr.io/byethan/outlook-email-plus:latest
 docker run -d --name test-remote -p 5004:5000 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e SECRET_KEY=test -e LOGIN_PASSWORD=admin123 \
   -e DOCKER_SELF_UPDATE_ALLOW=true \
-  guangshanshui/outlook-email-plus:latest
+  ghcr.io/byethan/outlook-email-plus:latest
 
 echo "等待容器启动..."
 sleep 10
@@ -347,7 +347,7 @@ chmod +x test-docker-api-update.sh
 - 确认容器内有读写权限：`ls -l /var/run/docker.sock`
 
 ### 2. "镜像名不在白名单内"
-- 确认镜像名包含 `guangshanshui/outlook-email-plus` 前缀
+- 确认镜像名包含 `ghcr.io/byethan/outlook-email-plus` 前缀
 - 检查 `ALLOWED_IMAGE_PREFIXES` 配置
 
 ### 3. updater 容器立即退出

@@ -8,7 +8,7 @@
 - 主题：点击邮件无法展开内容 / 展开后 active 高亮丢失 / 无限滚动频繁触发
 - 来源：GitHub Issue #24
 - 提出者：@africa1207
-- Issue 链接：https://github.com/ZeroPointSix/outlookEmailPlus/issues/24
+- Issue 链接：https://github.com/byethan/outlookEmailPlus/issues/24
 - Owner 回复：「前端重写带来的问题，已经开始优化了」
 
 ---
@@ -333,7 +333,7 @@ emailList.insertAdjacentHTML('beforeend', appendHtml);
 
 ## 附录：Owner 确认
 
-来自 Issue #24 评论（@ZeroPointSix）：
+来自 Issue #24 评论（@byethan）：
 > "前端重写带来的问题，已经开始优化了，至于获取邮件过慢可能是网络波动的原因"
 
 这确认了该 Bug 是前端重写引入的布局与状态管理问题，与后端无关。

@@ -64,7 +64,7 @@ def test_version_update_and_telegram_proxy():
                         const msg = document.getElementById('versionUpdateMsg');
                         if (banner && msg) {
                             msg.innerHTML = '发现新版本 <strong>v1.12.0</strong>（当前 v1.11.0）' +
-                                '<a href="https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v1.12.0" target="_blank" class="ms-1">查看更新日志</a>';
+                                '<a href="https://github.com/byethan/outlookEmailPlus/releases/tag/v1.12.0" target="_blank" class="ms-1">查看更新日志</a>';
                             banner.classList.remove('d-none');
                             document.getElementById('app').style.paddingTop = banner.offsetHeight + 'px';
                         }

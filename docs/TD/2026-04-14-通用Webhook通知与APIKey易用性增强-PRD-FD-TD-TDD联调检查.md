@@ -142,7 +142,7 @@
 ### 4.10 v1.17.0 发布确认与监控收口（2026-04-15）
 
 - 发布状态：`v1.17.0` 已在 GitHub Releases 发布并标记为 `Latest`。
-- 发布链接：`https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v1.17.0`
+- 发布链接：`https://github.com/byethan/outlookEmailPlus/releases/tag/v1.17.0`
 - 修复提交 `f3d2208` 对应主链路工作流已全绿（Code Quality / Python Tests / Build and Push Docker Image / SonarCloud）。
 - 监控收口提交 `05871bf` 触发的 SonarCloud（run `24450875717`）同样为 success。
 

@@ -7,7 +7,7 @@
 - 优先级：P1（中高优先级）
 - 主题：三栏布局高度不固定，整个页面可无限下滑（UX 体验问题）
 - 来源：内部分析 + 用户反馈（Issue #22、#24 讨论中发现）
-- 相关 Issue：https://github.com/ZeroPointSix/outlookEmailPlus/issues/24
+- 相关 Issue：https://github.com/byethan/outlookEmailPlus/issues/24
 
 ---
 

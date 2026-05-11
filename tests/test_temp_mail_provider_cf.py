@@ -239,8 +239,8 @@ class CloudflareTempMailProviderTests(unittest.TestCase):
                 "get_cf_worker_domains",
                 return_value={
                     "success": True,
-                    "domains": ["zerodotsix.top", "outlookmailplus.tech"],
-                    "default_domain": "zerodotsix.top",
+                    "domains": ["example.com", "example.net"],
+                    "default_domain": "example.com",
                     "title": "ZeroTemp Mail",
                     "version": "v1.5.0",
                 },
@@ -250,11 +250,11 @@ class CloudflareTempMailProviderTests(unittest.TestCase):
             # options 中应包含 domains
             domains = options.get("domains") or []
             self.assertGreaterEqual(len(domains), 1)
-            self.assertTrue(any(d.get("name") == "zerodotsix.top" for d in domains))
+            self.assertTrue(any(d.get("name") == "example.com" for d in domains))
 
             # DB 中也应写回 cf_worker_domains
             stored = settings_repo.get_cf_worker_domains()
-            self.assertTrue(any(d.get("name") == "zerodotsix.top" for d in stored))
+            self.assertTrue(any(d.get("name") == "example.com" for d in stored))
 
     # ------------------------------------------------------------------
     # create_mailbox

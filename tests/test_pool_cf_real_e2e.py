@@ -2,7 +2,7 @@
 CF临时邮箱接入邮箱池 — 真实 CF Worker API 端到端测试
 
 依赖环境:
-- CF Worker 真实可访问: https://temp.zerodotsix.top
+- CF Worker 真实可访问: https://temp.example.com
 - Admin Key 已配置
 - 外部 API Key 已启用
 
@@ -30,9 +30,9 @@ from tests._import_app import clear_login_attempts, import_web_app_module
 class RealCFWorkerE2ETests(unittest.TestCase):
     """真实 CF Worker API 端到端测试"""
 
-    CF_BASE_URL = "https://temp.zerodotsix.top"
+    CF_BASE_URL = "https://temp.example.com"
     CF_ADMIN_KEY = "1234567890-="
-    CF_DOMAIN = "zerodotsix.top"
+    CF_DOMAIN = "example.com"
 
     @classmethod
     def setUpClass(cls):

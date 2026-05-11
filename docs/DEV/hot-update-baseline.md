@@ -175,7 +175,7 @@ level=fatal msg="api token is empty or has not been set. exiting"
 版本检测 API 中的 GitHub 仓库地址为 `hshaokang/outlookemail-plus`（不存在），导致 API 返回 404 后降级为"无更新"。
 
 ### 解决方案（已实施）
-改为 `ZeroPointSix/outlookEmailPlus`，已提交 `e6d27b6`。
+改为 `byethan/outlookEmailPlus`，已提交 `e6d27b6`。
 
 ---
 

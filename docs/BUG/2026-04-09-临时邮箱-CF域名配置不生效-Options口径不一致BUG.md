@@ -141,11 +141,11 @@
 
 - `GET /api/temp-emails/options?provider_name=cloudflare_temp_mail` 返回 200
 - 返回 `domains` 包含：
-  - `zerodotsix.top`（默认）
-  - `outlookmailplus.tech`
+  - `example.com`（默认）
+  - `example.net`
 - DB 已写回：
-  - `cf_worker_domains=[{"name":"zerodotsix.top","enabled":true},{"name":"outlookmailplus.tech","enabled":true}]`
-  - `cf_worker_default_domain=zerodotsix.top`
+  - `cf_worker_domains=[{"name":"example.com","enabled":true},{"name":"example.net","enabled":true}]`
+  - `cf_worker_default_domain=example.com`
 
 ### 2) UI 验收
 

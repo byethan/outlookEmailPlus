@@ -53,7 +53,7 @@ docker-compose.yml           # app + watchtower 两个服务
 2. **一键更新 API**: `POST /api/system/trigger-update` — 调用 Watchtower HTTP API
 3. **Watchtower 测试 API**: `POST /api/system/test-watchtower` — 测试连通性
 4. **设置页面 Watchtower 配置**: URL + Token（加密存储），支持测试连通性
-5. **GitHub 仓库地址修复**: `hshaokang/outlookemail-plus` → `ZeroPointSix/outlookEmailPlus`
+5. **GitHub 仓库地址修复**: `hshaokang/outlookemail-plus` → `byethan/outlookEmailPlus`
 6. **热更新验证通过**: v1.12.0 → v1.12.1 成功更新
 
 ---
@@ -169,7 +169,7 @@ docker-compose.yml           # app + watchtower 两个服务
 | 路由注册 | 4 个新端点 | ✅ routes/system.py 全部注册 | ✅ |
 | `update_method` 设置 | GET/PUT 支持 | ✅ settings.py:351/1013 | ✅ |
 | 静态文件缓存控制 | Cache-Control 头 | ✅ app.py:124 `set_static_cache_control()` | ✅ |
-| GitHub 仓库地址 | ZeroPointSix/outlookEmailPlus | ✅ system.py:368 | ✅ |
+| GitHub 仓库地址 | byethan/outlookEmailPlus | ✅ system.py:368 | ✅ |
 | Docker compose 配置 | Token 默认值 + docker.sock | ✅ docker-compose.yml | ✅ |
 | .env.example | Watchtower + Docker API 模板 | ✅ .env.example 完整 | ✅ |
 
@@ -211,7 +211,7 @@ docker-compose.yml           # app + watchtower 两个服务
 
 1. **镜像白名单收紧**：
    - 移除 `outlook-email-plus`（无 namespace）白名单项
-   - 仅保留 `guangshanshui/outlook-email-plus` 官方镜像前缀
+   - 仅保留 `ghcr.io/byethan/outlook-email-plus` 官方镜像前缀
 
 2. **新增本地构建检测**：
    - `validate_image_for_update()`：镜像白名单 + RepoDigests 检测双重校验
@@ -232,7 +232,7 @@ docker-compose.yml           # app + watchtower 两个服务
 |------|------|
 | `outlook_web/services/docker_update.py` | 白名单收紧；新增 `validate_image_for_update()`, `_looks_like_local_image_ref()`, `_has_repo_digests()`；`get_container_info()` 获取 RepoDigests；`spawn_update_helper_container()` 和 `self_update()` 调用新校验函数；**Bug修复**：`_looks_like_local_image_ref()` 改为 namespace 白名单判断 |
 | `outlook_web/controllers/system.py` | `_trigger_docker_api_update()` API 层镜像校验；`api_deployment_info()` 获取镜像名逻辑优化 |
-| `docker-compose.docker-api-test.yml` | 镜像名改为 `guangshanshui/outlook-email-plus:latest`（形成负向用例） |
+| `docker-compose.docker-api-test.yml` | 镜像名改为 `ghcr.io/byethan/outlook-email-plus:latest`（形成负向用例） |
 | `docs/DEV/manual-acceptance-checklist.md` | **新增**：人工验收清单（4 个测试用例 + 验收标准 + 快速测试脚本） |
 
 **验收状态**：待 Docker 容器内实际测试

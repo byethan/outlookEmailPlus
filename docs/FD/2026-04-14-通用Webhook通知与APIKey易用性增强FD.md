@@ -289,15 +289,15 @@
 会话进展回填（2026-04-15，发布状态确认）：
 
 - 已确认 `v1.17.0` 发布状态：`GitHub Release` 为 `Latest`、非草稿、非预发布。
-- 发布页：`https://github.com/ZeroPointSix/outlookEmailPlus/releases/tag/v1.17.0`
+- 发布页：`https://github.com/byethan/outlookEmailPlus/releases/tag/v1.17.0`
 - 发布时间：`2026-04-15T10:29:25Z`
 - 本轮会话对发布后修复链路的监控已收口：`Code Quality / Python Tests / Build and Push Docker Image / SonarCloud Scan` 均在修复提交链路达到 success。
 
 会话进展回填（2026-04-15，双仓 Docker 镜像状态核对）：
 
 - 已核对仓库：
-  - GHCR：`ghcr.io/zeropointsix/outlook-email-plus`
-  - DockerHub：`docker.io/guangshanshui/outlook-email-plus`
+  - GHCR：`ghcr.io/byethan/outlook-email-plus`
+  - DockerHub：`ghcr.io/byethan/outlook-email-plus`
 - `main` 标签：两仓均存在，且 digest 一致：
   - `sha256:8aef74b93a816e3aa8020d1c20767715a5c51e1373f8c8f58f5d692092869218`
 - `latest` 标签：两仓均存在，且 digest 一致：

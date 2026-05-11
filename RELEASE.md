@@ -9,8 +9,7 @@
 - **代码版本**：以 Git Tag 为准，格式 `vX.Y.Z`（例如 `v1.11.0`）
 - **发布说明**：`CHANGELOG.md` 中对应版本段落（`## [vX.Y.Z] - YYYY-MM-DD`）
 - **Docker 镜像**：
-  - DockerHub：`guangshanshui/outlook-email-plus`（常用：`latest` / `vX.Y.Z`）
-  - GHCR：`ghcr.io/zeropointsix/outlook-email-plus`（常用：`latest` / `main` / `vX.Y.Z`）
+  - GHCR：`ghcr.io/byethan/outlook-email-plus`（常用：`latest` / `main` / `vX.Y.Z`）
 
 > 说明：镜像以 GitHub Actions 工作流 `.github/workflows/docker-build-push.yml` 为准。
 
@@ -114,10 +113,10 @@ git push origin vX.Y.Z
 
 ```bash
 # 验证稳定版本镜像
-docker pull guangshanshui/outlook-email-plus:vX.Y.Z
+docker pull ghcr.io/byethan/outlook-email-plus:vX.Y.Z
 
 # 验证 latest（main/master）
-docker pull guangshanshui/outlook-email-plus:latest
+docker pull ghcr.io/byethan/outlook-email-plus:latest
 ```
 
 验证点：
@@ -141,7 +140,7 @@ push `vX.Y.Z` tag 后，会由工作流 `.github/workflows/create-github-release
 - 生产回滚优先使用 **明确版本标签**（例如回滚到 `v1.10.1`）
 
 ```bash
-docker pull guangshanshui/outlook-email-plus:v1.10.1
+docker pull ghcr.io/byethan/outlook-email-plus:v1.10.1
 # 将部署配置中的镜像标签改回 v1.10.1 并重启
 ```
 
@@ -154,8 +153,7 @@ docker pull guangshanshui/outlook-email-plus:v1.10.1
 按以下顺序排查：
 1. GitHub Actions 的 `Build and Push Docker Image` 是否成功（失败时镜像不会更新）
 2. `quality-gate` 是否通过（格式化/静态检查/安全门禁/单测失败会阻断 push）
-3. 是否配置了 DockerHub 推送所需 Secrets（`DOCKERHUB_USERNAME` / `DOCKERHUB_TOKEN`）
-4. 你拉取的镜像仓库是否正确（DockerHub vs GHCR）
+3. 你拉取的镜像仓库是否正确（本 fork 默认使用 GHCR）
 
 ### 2）为什么 `vX.Y.Z` 镜像没生成？
 

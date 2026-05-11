@@ -16,16 +16,17 @@ OutlookMail Plus 是一款面向个人与团队的注册邮箱管理器。
 
 简而言之，OutlookMail Plus 是一款为“注册流程”打造的邮箱管理器。
 
-## 演示站点
+## 自托管访问
 
-演示站点：https://demo.outlookmailplus.tech/
-登录密码：`12345678`
+本 fork 默认按自托管方式使用。VPS 部署后建议只绑定 `127.0.0.1:5001`，再通过 SSH 隧道访问：
 
-站点内置 10 个邮箱账号用于演示，数据会定期重置。请勿删除演示账号或将其用于个人用途。
+```bash
+ssh -p 22928 -N -L 5001:127.0.0.1:5001 root@94.16.107.156
+```
 
-演示涵盖本项目的主要功能（Telegram 推送因需要额外配置，演示站未启用）。
+然后打开 `http://localhost:5001`。
 
-
+完整部署说明见 [byethan fork 部署说明](./docs/DEPLOY_BYETHAN.md)。
 
 
 ## 界面预览
@@ -142,77 +143,54 @@ docker run -d \
   -e SECRET_KEY=your-secret-key-here \
   -e LOGIN_PASSWORD=your-login-password \
   -e ALLOW_LOGIN_PASSWORD_CHANGE=false \
-  guangshanshui/outlook-email-plus:latest
+  ghcr.io/byethan/outlook-email-plus:latest
 ```
 
-**方式二：docker-compose（推荐，含一键更新）**
+**方式二：VPS 一键部署（推荐）**
 
-保存以下内容为 `docker-compose.yml`，然后运行 `docker-compose up -d`：
+在 VPS 上用 root 执行：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/byethan/outlookEmailPlus/main/scripts/deploy-vps.sh | bash
+```
+
+指定固定镜像标签：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/byethan/outlookEmailPlus/main/scripts/deploy-vps.sh | IMAGE=ghcr.io/byethan/outlook-email-plus:v2.0.0-byethan.1 bash
+```
+
+脚本会自动安装 Docker、创建 swap、生成 `.env`、写入安全版 compose、启动服务并检查 `/healthz`。
+
+**方式三：手动 docker-compose**
+
+保存以下内容为 `docker-compose.yml`，然后运行 `docker compose up -d`：
 
 ```yaml
 services:
   app:
-    image: ghcr.io/zeropointsix/outlook-email-plus:latest   # 推荐（国内网络稳定）
-    # image: guangshanshui/outlook-email-plus:latest         # Docker Hub 备选
+    image: ghcr.io/byethan/outlook-email-plus:latest
     container_name: outlook-email-plus
     restart: unless-stopped
     ports:
-      - "5001:5000"           # 可改为 5000:5000 或其他端口
+      - "127.0.0.1:5001:5000"
     env_file:
       - .env
     environment:
       SECRET_KEY: "${SECRET_KEY:?请在 .env 中设置 SECRET_KEY}"
-      # 一键更新 Token：留空即可直接使用内置默认值；生产环境建议设为随机强密码
-      WATCHTOWER_HTTP_API_TOKEN: "${WATCHTOWER_HTTP_API_TOKEN:-outlook-mail-plus-watchtower-default}"
-      # Docker API 自更新（可选，高级功能）
-      # ⚠️ 启用后容器可通过 Docker API 控制宿主机其他容器，存在安全风险
-      # DOCKER_SELF_UPDATE_ALLOW: "false"
+      DOCKER_SELF_UPDATE_ALLOW: "false"
     volumes:
       - ./data:/app/data
-      # Docker socket 挂载（可选，仅用于 Docker API 自更新功能）
-      # ⚠️ 挂载 docker.sock 会授予容器完全的 Docker API 访问权限，请谨慎使用
-      # - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      - outlook-net
-
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      # 与上方 app 服务保持一致；留空时两边同步使用内置默认值，无需手动对齐
-      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN:-outlook-mail-plus-watchtower-default}
-      - WATCHTOWER_HTTP_API_UPDATE=true
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_HTTP_API_PERIODIC_POLLS=false
-    command: --http-api-update --label-enable
-    labels:
-      - "com.centurylinklabs.watchtower.enable=false"
-    networks:
-      - outlook-net
-
-networks:
-  outlook-net:
-    driver: bridge
+      - ./.runtime:/app/.runtime
+      - ./plugins:/app/plugins
 ```
 
 说明：
 
 - 建议始终挂载 `data/`，避免数据库与运行数据丢失
 - `SECRET_KEY` 必须稳定且足够强，建议随机64位：`python -c "import secrets; print(secrets.token_hex(32))"`
-- `WATCHTOWER_HTTP_API_TOKEN` **可留空**，留空时 app 和 watchtower 自动使用同一内置默认值，部署后一键更新即可使用
-- 配置好后，当有新版本时系统界面会自动弹出更新提示，点击"立即更新"即可完成升级
-- 一键更新功能**仅在 docker-compose 部署方式下有效**；`docker run` 单容器模式不支持
-
-**更新方式**：默认使用 Watchtower（推荐）。如需使用 Docker API 自更新（无需 Watchtower），需在 `docker-compose.yml` 中：
-1. 取消 `DOCKER_SELF_UPDATE_ALLOW` 注释并设为 `"true"`
-2. 取消 docker.sock 挂载注释
-3. 在设置页选择"更新方式"为"Docker API"
-4. ⚠️ 请充分了解安全风险后再启用
+- 生产环境建议固定镜像标签，不长期依赖 `latest`
+- 默认不要启用 Watchtower，也不要挂载 `/var/run/docker.sock`
 
 #### ClawCloud / 反向代理部署注意事项
 
@@ -274,15 +252,15 @@ python -m unittest discover -s tests -v
 ### 一键更新相关
 
 - `WATCHTOWER_HTTP_API_TOKEN`
-  Watchtower API 鉴权令牌。**可留空**，留空时 app 和 watchtower 两边自动使用同一内置默认值，开箱即用；生产环境建议设置随机强密码
+  Watchtower API 鉴权令牌。默认安全部署不启用 Watchtower。
 - `WATCHTOWER_API_URL`
-  Watchtower API 地址，默认 `http://watchtower:8080`（Docker 内部网络，通常无需修改）
+  Watchtower API 地址，默认 `http://watchtower:8080`。默认安全部署不需要配置。
 - `DOCKER_SELF_UPDATE_ALLOW`
   是否启用 Docker API 自更新功能，默认 `false`。⚠️ 启用后容器可访问 Docker API，存在安全风险
 - `DOCKER_IMAGE`
   当前容器镜像名（可选，用于部署信息检测）
 
-> **安全提示**：Docker API 自更新需要挂载 `/var/run/docker.sock`，这会授予容器完全的 Docker API 访问权限。生产环境建议使用 Watchtower 方式。
+> **安全提示**：生产环境建议手动更新固定镜像标签，不启用 Watchtower，也不挂载 `/var/run/docker.sock`。
 
 ## 通知能力说明
 
@@ -428,5 +406,4 @@ Apache License 2.0
 
 ## 联系方式
 
-如果你在使用过程中遇到问题，或有合作意向，欢迎通过邮件联系：[outlookmailplus@163.com](mailto:outlookmailplus@163.com)
-
+如果你在使用过程中遇到问题，可以在 GitHub Issues 记录：[https://github.com/byethan/outlookEmailPlus/issues](https://github.com/byethan/outlookEmailPlus/issues)

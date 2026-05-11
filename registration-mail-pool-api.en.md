@@ -357,7 +357,7 @@ curl -X POST https://api.example.com/api/external/pool/claim-random \
     "task_id": "task-20260409-0001",
     "provider": "cloudflare_temp_mail",
     "project_key": "project-A",
-    "email_domain": "zerodotsix.top"
+    "email_domain": "example.com"
   }'
 ```
 
@@ -370,8 +370,8 @@ Success response example:
   "message": "success",
   "data": {
     "account_id": 123,
-    "email": "abc123@zerodotsix.top",
-    "email_domain": "zerodotsix.top",
+    "email": "abc123@example.com",
+    "email_domain": "example.com",
     "claim_token": "clm_xxx",
     "claimed_at": "2026-04-09T05:38:26.123Z",
     "lease_expires_at": "2026-04-09T05:48:26.123Z"

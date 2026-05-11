@@ -219,7 +219,7 @@ All notable changes to OutlookMail Plus are documented in this file.
 - 定向回归：
   - `tests.test_refresh_selected_issue45` / `tests.test_refresh_outlook_only` / `tests.test_frontend_account_type_and_refresh_suggestions_contract` / `tests.test_oauth_tool` 均通过。
 - 本地 Docker 人工验收：
-  - 构建镜像 `ghcr.io/zeropointsix/outlook-email-plus:local-main-20260417` 成功；
+  - 构建镜像 `ghcr.io/byethan/outlook-email-plus:local-main-20260417` 成功；
   - 容器 `outlook-email-plus-local-main` 在 `5002->5000` healthy；
   - `GET /healthz` 返回 `status=ok, version=1.18.0`（构建时点）；
   - 用户确认“验收通过”。
@@ -374,7 +374,7 @@ All notable changes to OutlookMail Plus are documented in this file.
 - **热更新双模式支持**：新增 Watchtower 和 Docker API（A2 helper 容器）两种一键更新方式，支持在设置页面切换
 - **Watchtower 集成**：连通性测试、手动触发更新、已是最新版本智能检测（基于 Watchtower 同步行为）
 - **Docker API 自更新**：digest 预检查避免无效更新、辅助容器（oep-updater）执行 12 步更新流程、失败自动回滚
-- **GHCR 镜像支持**：白名单新增 `ghcr.io/zeropointsix/` 前缀，支持 GitHub Container Registry 镜像
+- **GHCR 镜像支持**：白名单新增 `ghcr.io/byethan/` 前缀，支持 GitHub Container Registry 镜像
 - **版本检测增强**：`_version_gt()` 支持 pre-release 后缀（如 `-hotupdate-test`），自动忽略后缀仅比较语义版本号
 - **部署信息 API**：`/api/system/deployment-info` 返回镜像名、标签、本地构建检测、Docker API 可用性
 - **healthz 增强**：新增 `boot_id`（进程指纹）和 `version` 字段，支持前端精确检测容器重启

@@ -1,7 +1,7 @@
 # 批量刷新 Selected 账号：SSE 提前失败（BUG）
 
 **创建日期**: 2026-04-16  
-**关联 Issue**: https://github.com/ZeroPointSix/outlookEmailPlus/issues/45  
+**关联 Issue**: https://github.com/byethan/outlookEmailPlus/issues/45  
 **关联模块**: `static/js/main.js`、`outlook_web/controllers/accounts.py`、`outlook_web/services/refresh.py`  
 **状态**: 🟢 已恢复修复（2026-04-16，会话内二次落地并复验）  
 **优先级建议**: P1（核心手动刷新链路）
@@ -371,7 +371,7 @@ accounts = [
     - 按用户要求执行“本地构建 + 启动 + 人工验收”，并选择复用 `5002` 端口。
     - 已执行：
       - 停止并删除旧容器 `outlook-email-plus-local-main`
-      - 本地重构建镜像：`ghcr.io/zeropointsix/outlook-email-plus:local-main-20260417`
+      - 本地重构建镜像：`ghcr.io/byethan/outlook-email-plus:local-main-20260417`
       - 使用隔离数据目录重新启动同名容器并映射 `5002->5000`
     - 启动后核验：
       - 容器状态：`Up ... (healthy)`
